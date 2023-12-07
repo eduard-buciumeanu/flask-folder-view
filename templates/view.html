@@ -6,4 +6,26 @@
 
 <h1 class="text-center" style="margin-top: 20px;">View Folders</h1>
 
+<div class="position-relative" style="margin-top: 20px;">
+    <div class="position-absolute top-0 start-50 translate-middle-x" style="min-width: 80vw; max-width: 80vh;">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Path</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in folders_table %}
+                <tr>
+                    <th scope="row">{{item["folder_name"]}}</th>
+                    <td>{{item["folder_path"]}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 {% endblock %}

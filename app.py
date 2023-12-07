@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy import insert
+from sqlalchemy import insert, select
 from database.models import engine, Folder, session
 
 
@@ -57,7 +57,26 @@ def home():
 
 @app.route('/view')
 def view():
-    return render_template('view.html')
+
+    folders_table = []
+
+    try:
+        with session.begin():
+            result = session.execute(select(Folder))
+    except SQLAlchemyError as e:
+        flash(f'Error: {e}')
+
+    if result:
+        for row in result.scalars():
+
+            item = {'folder_name': row.folder_name, 'folder_path': row.folder_path}
+            folders_table.append(item)
+
+            # print(f'{row.folder_name} {row.folder_path}')
+        
+    print(f'Folders table {folders_table}')
+
+    return render_template('view.html', folders_table=folders_table)
 
 
 if __name__ == '__main__':
