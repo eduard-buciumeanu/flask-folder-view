@@ -1,8 +1,10 @@
-from app import app
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime, Text
+from utils.paths import database_path
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 
+engine = create_engine(f'sqlite:///{database_path}', echo=True)
 Base = declarative_base()
 
 class Folder(Base):
@@ -12,5 +14,7 @@ class Folder(Base):
     folder_path = Column(String, unique=True, nullable=False)
 
 
-engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(engine)
+
+Session = sessionmaker(bind=engine)
+session = Session()

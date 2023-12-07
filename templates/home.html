@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Folder View{% endblock %}
+
+{% block content %}
+    
+<h1 class="text-center" style="margin-top: 20px;">Add Folders</h1>
+
+<form action="#" method="post">
+    <div class="d-flex flex-column align-items-center">
+        <div class="col-sm-5 text-center">
+            <label for="FolderNameInput" class="form-label col-form-label-lg">Folder Name</label>
+            <input type="text" class="form-control form-control-lg" id="FolderNameInput" name="FolderNameInput" placeholder="Name of your directory">
+        </div>
+        <div class="col-sm-5 text-center">
+            <label for="FolderPathInput" class="form-label col-form-label-lg">Folder path</label>
+            <input type="text" class="form-control form-control-lg" id="FolderPathInput" name="FolderPathInput" placeholder="Paste your full directory path here"></textarea>
+        </div>
+        <button type="submit" value="submit" class="btn btn-secondary btn-lg" style="margin-top: 20px;">Add Folder</button>
+    </div>
+</form>
+
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p class="d-flex justify-content-center" style="margin-top: 20px;">{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+{% endblock %}
